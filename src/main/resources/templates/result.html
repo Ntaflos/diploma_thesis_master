@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin=""/>
+
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""></script>
+
+    <title>Map</title>
+</head>
+<body>
+<h1>Diploma Thesis</h1>
+
+<div id="mapid" style="width: 1500px; height: 800px; border: 1px solid #AAA;"></div>
+
+
+<script th:inline="javascript">
+    mymap = L.map('mapid').setView([41.11148, 16.8554], 4);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        maxZoom: 18,
+        attribution: 'Diploma Thesis &copy;',
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1
+    }).addTo(mymap);
+   // here pass geojson and not loc !!!
+    var data = [[${loc}]];
+    console.log("to", data.length);
+    for (var i = 0; i < data.length; i++) {
+        var marker = L.marker([data[i].x, data[i].y]).addTo(mymap);
+
+        marker.bindPopup("<b>Description: </b><br>" + data[i].description.replace(/_/g, "<br>"))
+    }
+
+</script>
+
+
+</body>
+</html>

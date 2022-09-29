@@ -1,0 +1,16 @@
+{
+  "queries": [
+    {
+      "name": "scoreQuery",
+      "parameters": {
+        "score": "x"
+      }
+    },
+    {
+      "name": "countryQuery",
+      "parameters": {
+        "country": "x"
+      }
+    }
+  ]
+}
